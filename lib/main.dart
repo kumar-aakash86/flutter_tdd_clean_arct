@@ -2,7 +2,11 @@ import 'package:clean_demo_doc/features/tdd_test/presentation/pages/trivia_page.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'features/tdd_test/presentation/bloc/trivia_bloc.dart';
+import 'injection.dart' as di;
+
 void main() {
+  di.init();
   runApp(const MyApp());
 }
 
@@ -11,14 +15,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BlocProvider<TriviaBloc>(
+      create: (_) => di.inj<TriviaBloc>(),
+      child: MaterialApp(
+        title: 'TDD Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const TriviaPage(),
       ),
-      // home: MultiBlocProvider(providers: [
-      //   BlocProvider(create: (_) => )
-      // ], child: child),
     );
   }
 }
